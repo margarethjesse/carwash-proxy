@@ -1,0 +1,12 @@
+{
+  "name": "carwash-scanner-proxy",
+  "version": "1.0.0",
+  "description": "Proxy server for Car Wash Scanner — forwards HasData API requests",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
