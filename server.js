@@ -1,7 +1,7 @@
 const http = require('http');
 const https = require('https');
 
-const PORT = process.env.PORT || 8765;
+const PORT = process.env.PORT || 3000;
 const HASDATA_API_KEY = process.env.HASDATA_API_KEY || '';
 
 if (!HASDATA_API_KEY) {
@@ -16,6 +16,13 @@ const server = http.createServer((req, res) => {
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
     res.end();
+    return;
+  }
+
+  // Health check
+  if (req.url === '/' || req.url === '/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', message: 'Car Wash Scanner proxy running' }));
     return;
   }
 
@@ -56,6 +63,6 @@ const server = http.createServer((req, res) => {
   proxyReq.end();
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`Car Wash Scanner proxy running on port ${PORT}`);
 });
